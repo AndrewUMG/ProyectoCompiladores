@@ -1,0 +1,78 @@
+GramLex - Ejemplos de gramatica con recursividad izquierda
+Formato de entrada:
+A::A'algo'B|B
+Terminales entre comillas simples. Epsilon: e
+
+=== Ejemplo 1 (clasico expresiones) ===
+Entrada:
+S::S'+'T|T
+T::T'*'F|F
+F::'a1'|e
+
+Sin recursividad (esperado):
+S:: T S!
+S!:: '+' T S! | e
+T:: F T!
+T!:: '*' F T! | e
+F:: 'a1' | e
+
+PRIMERO (esperado, sobre gramatica sin recursividad):
+S  = a1, *, +, e
+S! = +, e
+T  = a1, *, e
+T! = *, e
+F  = a1, e
+
+SIGUIENTE (esperado, sobre gramatica sin recursividad):
+S  = $
+S! = $
+T  = +, $
+T! = +, $
+F  = *, +, $
+
+=== Ejemplo 2 (A,B con recursion directa) ===
+Entrada:
+A::A'a'|B
+B::B'b'|C
+C::'c'
+
+Sin recursividad (esperado):
+A:: B A!
+A!:: 'a' A! | e
+B:: C B!
+B!:: 'b' B! | e
+C:: 'c'
+
+PRIMERO (esperado):
+A  = c
+A! = a, e
+B  = c
+B! = b, e
+C  = c
+
+SIGUIENTE (esperado):
+A  = $
+A! = $
+B  = a, $
+B! = a, $
+C  = b, a, $
+
+=== Ejemplo 3 (S con recursion y opcion vacia) ===
+Entrada:
+S::S'+'A|A
+A::'a'|e
+
+Sin recursividad (esperado):
+S:: A S!
+S!:: '+' A S! | e
+A:: 'a' | e
+
+PRIMERO (esperado):
+S  = a, +, e
+S! = +, e
+A  = a, e
+
+SIGUIENTE (esperado):
+S  = $
+S! = $
+A  = +, $

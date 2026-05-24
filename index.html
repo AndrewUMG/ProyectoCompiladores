@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GramLex - Analizador de Gramáticas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="header-brand">
+        <span class="logo">GramLex</span>
+        <span class="subtitle">Analizador de Gramáticas — Compiladores</span>
+      </div>
+      <div class="header-user">Andrés</div>
+    </header>
+
+    <main class="main-content">
+      <div class="top-panels">
+        <!-- Panel Izquierdo -->
+        <section class="panel panel-left">
+          <div class="panel-header">
+            <h2>Gramática Original</h2>
+            <button id="btn-run" class="btn-primary" title="Ejecutar (F5)">
+              <span class="icon">▶</span> Ejecutar <span class="badge">F5</span>
+            </button>
+          </div>
+          <div class="editor-container">
+            <textarea id="grammar-input" spellcheck="false" placeholder="Ingresa la gramática aquí...&#10;Ejemplo:&#10;S::S'+'T|T&#10;T::T'*'F|F&#10;F::'a1'|e">S::S'+'T|T
+T::T'*'F|F
+F::'a1'|e</textarea>
+          </div>
+          
+          <div class="tables-row">
+            <div class="table-container vt-col">
+              <table id="table-vt-orig">
+                <thead><tr><th>V</th><th>T</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="table-container prod-col">
+              <table id="table-prod-orig">
+                <thead><tr><th>V</th><th>Producción</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Derecho -->
+        <section class="panel panel-right">
+          <div class="panel-header">
+            <h2>Gramática Sin Recursividad</h2>
+            <br>
+          </div>
+          <div class="editor-container">
+            <div id="grammar-output" class="text-output readonly-area"></div>
+          </div>
+          
+          <div class="tables-row">
+            <div class="table-container vt-col">
+              <table id="table-vt-trans">
+                <thead><tr><th>V</th><th>T</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+            <div class="table-container prod-col">
+              <table id="table-prod-trans">
+                <thead><tr><th>V</th><th>Producción</th></tr></thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="bottom-panel">
+        <section class="panel">
+          <div class="panel-header"><h2>Función PRIMERO</h2></div>
+          <div class="table-container h-full">
+            <table id="table-first">
+              <thead><tr><th width="80px">V</th><th>Terminales</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="panel">
+          <div class="panel-header"><h2>Función SIGUIENTE</h2></div>
+          <div class="table-container h-full">
+            <table id="table-follow">
+              <thead><tr><th width="80px">V</th><th>Terminales</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <span>Andrés</span>
+      <span>Curso Compiladores</span>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
