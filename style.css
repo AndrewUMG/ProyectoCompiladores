@@ -1,7 +1,7 @@
 :root {
-  /* Enhanced minimalist professional palette */
-  --color-primary: #0f172a; /* Deep slate */
-  --color-accent: #f59e0b;  /* Amber */
+  /* Paleta profesional minimalista mejorada */
+  --color-primary: #0f172a; /* Pizarra profunda */
+  --color-accent: #f59e0b;  /* Ambar */
   --color-bg: #f8fafc;
   --color-surface: #ffffff;
   --color-border: #cbd5e1;
@@ -24,7 +24,7 @@ html, body {
   padding: 0;
   height: 100vh;
   width: 100vw;
-  overflow: hidden; /* No scrollbars on main view */
+  overflow: hidden; /* Sin barras de desplazamiento en la vista principal */
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
@@ -38,7 +38,7 @@ html, body {
   width: 100vw;
 }
 
-/* Header */
+/* Encabezado */
 .header {
   background-color: var(--color-primary);
   color: var(--color-surface);
@@ -73,7 +73,7 @@ html, body {
   font-size: 0.95rem;
 }
 
-/* Main Content Grid */
+/* Grilla de contenido principal */
 .main-content {
   display: grid;
   grid-template-rows: 3fr 2fr;
@@ -98,7 +98,7 @@ html, body {
   overflow: hidden;
 }
 
-/* Panels */
+/* Paneles */
 .panel {
   background-color: var(--color-surface);
   border-radius: var(--radius-md);
@@ -126,7 +126,7 @@ html, body {
   color: var(--color-primary);
 }
 
-/* Controls */
+/* Controles */
 .btn-primary {
   background-color: var(--color-accent);
   color: #fff;
@@ -161,7 +161,7 @@ html, body {
   font-size: 0.8rem;
 }
 
-/* Editor & Output */
+/* Editor y salida */
 .editor-container {
   height: 120px;
   flex-shrink: 0;
@@ -197,7 +197,7 @@ textarea:focus {
   color: var(--color-primary);
 }
 
-/* Tables Layout */
+/* Disposicion de tablas */
 .tables-row {
   display: flex;
   gap: 0.75rem;
@@ -225,7 +225,7 @@ textarea:focus {
   min-height: 0;
 }
 
-/* Tables Style */
+/* Estilos de tablas */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -264,7 +264,7 @@ td {
   text-overflow: ellipsis;
 }
 
-/* Footer */
+/* Pie de pagina */
 .footer {
   background-color: var(--color-primary);
   color: var(--color-surface);
@@ -275,7 +275,7 @@ td {
   font-size: 0.85rem;
 }
 
-/* Animations */
+/* Animaciones */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
@@ -294,7 +294,7 @@ td {
   100% { background-color: transparent; }
 }
 
-/* Scrollbar customization for internal containers */
+/* Personalizacion de scrollbars en contenedores internos */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;

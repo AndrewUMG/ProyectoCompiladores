@@ -1,9 +1,4 @@
-/**
- * GramLex - Grammar Lexical Analyzer
- * Core Logic and DOM Controller
- */
-
-// --- 1. Parser Module ---
+// --- 1. Modulo de parser ---
 
 const EPSILON = 'e';
 
@@ -94,7 +89,7 @@ function parseGrammar(text) {
 }
 
 
-// --- 2. Left Recursion Eliminator Module ---
+// --- 2. Modulo de eliminacion de recursion izquierda ---
 
 function removeLeftRecursion(grammar) {
     const variables = [...grammar.variables];
@@ -109,7 +104,7 @@ function removeLeftRecursion(grammar) {
     for (let i = 0; i < baseCount; i++) {
         const Ai = variables[i];
         
-        // Indirect recursion elimination
+        // Eliminacion de recursion indirecta
         for (let j = 0; j < i; j++) {
             const Aj = variables[j];
             const newAiProds = [];
@@ -133,7 +128,7 @@ function removeLeftRecursion(grammar) {
             if (changed) productions[Ai] = newAiProds;
         }
 
-        // Direct recursion elimination
+        // Eliminacion de recursion directa
         const recursive = [];
         const nonRecursive = [];
         for (const prod of (productions[Ai] || [])) {
@@ -188,7 +183,7 @@ function removeLeftRecursion(grammar) {
 }
 
 
-// --- 3. FIRST Set Module ---
+// --- 3. Modulo de conjuntos PRIMERO ---
 
 function computeFirst(grammar) {
     const first = {};
@@ -217,7 +212,7 @@ function computeFirst(grammar) {
 }
 
 
-// --- 4. FOLLOW Set Module ---
+// --- 4. Modulo de conjuntos SIGUIENTE ---
 
 function computeFollow(grammar, first) {
     const follow = {};
@@ -293,7 +288,7 @@ function firstOfSequence(sequence, first) {
 }
 
 
-// --- 5. DOM Controller Module ---
+// --- 5. Modulo de control del DOM ---
 
 function renderTableVT(tableId, variables, terminals) {
     const tbody = document.querySelector(`#${tableId} tbody`);
@@ -340,7 +335,7 @@ function renderTableProd(tableId, variables, productions) {
             const tdV = document.createElement('td');
             tdV.textContent = v;
             const tdP = document.createElement('td');
-            // Reconstruct production string for display (e for epsilon)
+            // Reconstruye la produccion para mostrar (e para epsilon)
             tdP.textContent = prod.map(tok => tok === EPSILON ? EPSILON : tok).join(' ');
             tr.appendChild(tdV);
             tr.appendChild(tdP);
@@ -370,7 +365,7 @@ function renderSetTable(tableId, variables, setObj) {
         const tdS = document.createElement('td');
         const items = Array.from(setObj[v] || []);
         tdS.textContent = items.join(', ');
-        tdS.title = tdS.textContent; // Tooltip for overflow
+        tdS.title = tdS.textContent; // Tooltip para desbordes
         tr.appendChild(tdV);
         tr.appendChild(tdS);
         tbody.appendChild(tr);
@@ -404,7 +399,7 @@ function triggerAnimations() {
     const panels = document.querySelectorAll('.table-container, .readonly-area');
     panels.forEach(p => {
         p.classList.remove('active');
-        // trigger reflow
+        // forzar reflow
         void p.offsetWidth;
         p.classList.add('fade-update', 'active');
     });
@@ -415,28 +410,28 @@ function ejecutar() {
     if (!input.trim()) return;
 
     try {
-        // 1. Parse Original
+        // 1. Parseo original
         const origGrammar = parseGrammar(input);
         const origTerminalsByVar = collectTerminalsByVariable(origGrammar);
         renderTableVTByVariable('table-vt-orig', origGrammar.variables, origTerminalsByVar);
         renderTableProd('table-prod-orig', origGrammar.variables, origGrammar.productions);
 
-        // 2. Remove Left Recursion
+        // 2. Eliminacion de recursion izquierda
         const transGrammar = removeLeftRecursion(origGrammar);
         document.getElementById('grammar-output').textContent = formatGrammarText(transGrammar);
         const transTerminalsByVar = collectTerminalsByVariable(transGrammar);
         renderTableVTByVariable('table-vt-trans', transGrammar.variables, transTerminalsByVar);
         renderTableProd('table-prod-trans', transGrammar.variables, transGrammar.productions);
 
-        // 3. FIRST Sets
+        // 3. Conjuntos PRIMERO
         const firstSets = computeFirst(transGrammar);
         renderSetTable('table-first', transGrammar.variables, firstSets);
 
-        // 4. FOLLOW Sets
+        // 4. Conjuntos SIGUIENTE
         const followSets = computeFollow(transGrammar, firstSets);
         renderSetTable('table-follow', transGrammar.variables, followSets);
 
-        // 5. UX feedback
+        // 5. Feedback de UX
         triggerAnimations();
 
     } catch (err) {
@@ -445,7 +440,7 @@ function ejecutar() {
     }
 }
 
-// Event Listeners
+// Listeners de eventos
 document.getElementById('btn-run').addEventListener('click', ejecutar);
 
 document.addEventListener('keydown', e => {
@@ -455,9 +450,9 @@ document.addEventListener('keydown', e => {
     }
 });
 
-// Run with default example on load to show empty/initial state beautifully
+// Ejecuta al cargar para mostrar el estado inicial
 window.addEventListener('DOMContentLoaded', () => {
-    // We can run the default or just let it be empty until execution
-    // Running it once to show a fully populated UI is good for UX
+    // Se puede ejecutar el ejemplo por defecto o dejarlo vacio
+    // Ejecutarlo una vez muestra la UI completa y mejora UX
     ejecutar();
 });
