@@ -452,7 +452,5 @@ document.addEventListener('keydown', e => {
 
 // Ejecuta al cargar para mostrar el estado inicial
 window.addEventListener('DOMContentLoaded', () => {
-    // Se puede ejecutar el ejemplo por defecto o dejarlo vacio
-    // Ejecutarlo una vez muestra la UI completa y mejora UX
     ejecutar();
 });
