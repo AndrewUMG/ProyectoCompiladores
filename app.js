@@ -22,6 +22,12 @@ function extractTokens(alt) {
                 term += alt[j];
                 j++;
             }
+            if (j >= alt.length) {
+                throw new Error('Terminal sin cierre de comillas simples.');
+            }
+            if (term.length === 0) {
+                throw new Error('Terminal vacio no permitido.');
+            }
             tokens.push(term);
             i = j + 1;
         } else if (/[A-Z]/.test(alt[i])) {
@@ -37,8 +43,7 @@ function extractTokens(alt) {
             tokens.push(EPSILON);
             i++;
         } else {
-            tokens.push(alt[i]);
-            i++;
+            throw new Error('Terminal debe estar entre comillas simples.');
         }
     }
     return tokens;
@@ -436,7 +441,8 @@ function ejecutar() {
 
     } catch (err) {
         console.error("Error processing grammar:", err);
-        alert("Ocurrió un error al procesar la gramática. Verifica la sintaxis.");
+        const message = err && err.message ? err.message : 'Ocurrió un error al procesar la gramática.';
+        alert(message);
     }
 }
 
