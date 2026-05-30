@@ -23,12 +23,13 @@ function extractTokens(alt) {
                 j++;
             }
             if (j >= alt.length) {
-                throw new Error('Terminal sin cierre de comillas simples.');
+                return null;
             }
-            if (term.length === 0) {
-                throw new Error('Terminal vacio no permitido.');
+            if (term.length > 0) {
+                tokens.push(term);
+            } else {
+                return null;
             }
-            tokens.push(term);
             i = j + 1;
         } else if (/[A-Z]/.test(alt[i])) {
             let v = alt[i];
@@ -43,7 +44,7 @@ function extractTokens(alt) {
             tokens.push(EPSILON);
             i++;
         } else {
-            throw new Error('Terminal debe estar entre comillas simples.');
+            return null;
         }
     }
     return tokens;
@@ -71,6 +72,9 @@ function parseGrammar(text) {
             alt = alt.trim();
             if (!alt) continue;
             const tokens = extractTokens(alt);
+            if (!tokens) {
+                continue;
+            }
             productions[lhs].push(tokens);
 
             for (const tok of tokens) {
